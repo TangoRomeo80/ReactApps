@@ -11,6 +11,9 @@ const Chat = () => {
 
   const [name, setName] = useState('')
   const [room, setRoom] = useState('')
+  const [users, setUsers] = useState('')
+  const [message, setMessage] = useState('')
+  const [messages, setMessages] = useState([])
 
   useEffect(() => {
     const { name, room } = Object.fromEntries([...searchParams])
@@ -31,6 +34,24 @@ const Chat = () => {
       socket.off()
     }
   }, [ENDPOINT, searchParams])
+
+  useEffect(() => {
+    socket.on('message', (message) => {
+      setMessages((messages) => [...messages, message])
+    })
+
+    socket.on('roomData', ({ users }) => {
+      setUsers(users)
+    })
+  }, [])
+
+  const sendMessage = (event) => {
+    event.preventDefault()
+
+    if (message) {
+      socket.emit('sendMessage', message, () => setMessage(''))
+    }
+  }
 
   return <h1>Chat</h1>
 }
