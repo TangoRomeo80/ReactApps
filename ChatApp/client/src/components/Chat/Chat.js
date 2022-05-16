@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import io from 'socket.io-client'
 
+import TextContainer from '../TextContainer/TextContainer'
+import Messages from '../Messages/Messages'
+import InfoBar from '../InfoBar/InfoBar'
+import Input from '../Input/Input'
+
+import './Chat.css'
+
 const ENDPOINT = 'localhost:5000'
 
 let socket
@@ -53,7 +60,20 @@ const Chat = () => {
     }
   }
 
-  return <h1>Chat</h1>
+  return (
+    <div className='outerContainer'>
+      <div className='container'>
+        <InfoBar room={room} />
+        <Messages messages={messages} name={name} />
+        <Input
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+        />
+      </div>
+      <TextContainer users={users} />
+    </div>
+  )
 }
 
 export default Chat
