@@ -1,5 +1,6 @@
 const express = require('express')
 const socketio = require('socket.io')
+const cors = require('cors')
 const http = require('http')
 const router = require('./router')
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users')
@@ -17,6 +18,8 @@ const io = socketio(server, {
   },
   transport: ['websocket'],
 })
+
+app.use(cors())cle
 
 app.use(router)
 
