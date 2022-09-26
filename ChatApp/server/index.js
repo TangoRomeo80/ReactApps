@@ -19,7 +19,7 @@ const io = socketio(server, {
   transport: ['websocket'],
 })
 
-app.use(cors())cle
+app.use(cors())
 
 app.use(router)
 
